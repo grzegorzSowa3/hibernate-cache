@@ -18,6 +18,7 @@ public class PostService {
         return post.getId();
     }
 
+    @Transactional
     public void editPost(UUID postId, EditPostDto dto) {
         final Post post = postRepository.findById(postId)
                 .orElseThrow(NotFoundException::new);
