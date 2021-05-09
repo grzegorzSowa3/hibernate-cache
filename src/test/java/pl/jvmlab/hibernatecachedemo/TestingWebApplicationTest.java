@@ -11,6 +11,7 @@ import java.util.UUID;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -38,6 +39,23 @@ public class TestingWebApplicationTest {
                         .content("{\"text\": \"Edited post\"}")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
+
+    }
+
+    @Test
+    public void shouldGetAllPosts() throws Exception {
+
+        this.mockMvc.perform(
+                post("/posts")
+                        .header("userId", userId)
+                        .content("{\"text\": \"Sample post\"}")
+                        .contentType(MediaType.APPLICATION_JSON));
+
+        for (int i = 0; i < 4; i++) {
+            this.mockMvc.perform(
+                    get("/posts"))
+                    .andExpect(status().isOk());
+        }
 
     }
 }

@@ -3,6 +3,7 @@ package pl.jvmlab.hibernatecachedemo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -26,6 +27,10 @@ public class PostService {
 
     public Post getPost(UUID postId) {
         return postRepository.findById(postId).orElseThrow(NotFoundException::new);
+    }
+
+    public List<Post> getAllPosts() {
+        return postRepository.findAll();
     }
 
 }
